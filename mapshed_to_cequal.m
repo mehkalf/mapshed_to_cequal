@@ -1,45 +1,45 @@
 clc;
 clear all;
 
-FOLDER_PATH                 = pwd;
-MAPSHED_OUTPUT_FOLDER       = strcat(FOLDER_PATH, '\MAPSHED_OUTPUT\SUB_001');
-C_FILENAME					= 'cdt_kol001';
-CEQUAL_C_INPUT_FOLDER		= strcat(FOLDER_PATH, '\CEQUAL_INPUT\C_FILES');
-READ_MAPSHED_OUTPUT_FOLDER  = dir(strcat(MAPSHED_OUTPUT_FOLDER, '\*.csv'));
-READ_MAPSHED_OUTPUT_FILE    = {READ_MAPSHED_OUTPUT_FOLDER(:).name}.';
+FOLDER_PATH                     = pwd;
+MAPSHED_OUTPUT_FOLDER           = strcat(FOLDER_PATH, '\MAPSHED_OUTPUT\SUB_001');
+C_FILENAME					    = 'cdt_kol001';
+CEQUAL_C_INPUT_FOLDER		    = strcat(FOLDER_PATH, '\CEQUAL_INPUT\C_FILES');
+READ_MAPSHED_OUTPUT_FOLDER      = dir(strcat(MAPSHED_OUTPUT_FOLDER, '\*.csv'));
+READ_MAPSHED_OUTPUT_FILE        = {READ_MAPSHED_OUTPUT_FOLDER(:).name}.';
 
 cd(MAPSHED_OUTPUT_FOLDER) 
-MAPSHED_OUTPUT_DATA         = readtable(READ_MAPSHED_OUTPUT_FILE{1});
+MAPSHED_OUTPUT_DATA             = readtable(READ_MAPSHED_OUTPUT_FILE{1});
 cd(FOLDER_PATH)
 
 fprintf('MAPSHED OUTPUT DOSYASI OKUNDU ...\n');
 
-JDAY                        = transpose(1:(height(MAPSHED_OUTPUT_DATA)));
-ROWS                        = height(MAPSHED_OUTPUT_DATA);
+JDAY                            = transpose(1:(height(MAPSHED_OUTPUT_DATA)));
+ROWS                            = height(MAPSHED_OUTPUT_DATA);
 
 %KONSANTRASYON DOSYASI
-C_DATA_FIRST_2_ROWS = cell(2,24);
-C_DATA_FIRST_2_ROWS(1,1) = cellstr(strcat('$ [', C_FILENAME, '] [2015 - 2048]'));
-C_DATA_FIRST_2_ROWS(2,1) = cellstr(strcat('$ [', C_FILENAME, ']'));
+C_DATA_FIRST_2_ROWS             = cell(2,24);
+C_DATA_FIRST_2_ROWS(1,1)        = cellstr(strcat('$ [', C_FILENAME, '] [2015 - 2048]'));
+C_DATA_FIRST_2_ROWS(2,1)        = cellstr(strcat('$ [', C_FILENAME, ']'));
 
 %---AMMONIUM----
-C_NH4_N_DATA 		= MAPSHED_OUTPUT_DATA(:, {'Date', 'TN_mg_L_'});
-month_data 			= month(C_NH4_N_DATA.Date);
+C_NH4_N_DATA 		            = MAPSHED_OUTPUT_DATA(:, {'Date', 'TN_mg_L_'});
+month_data 			            = month(C_NH4_N_DATA.Date);
 
 %Aylik Amonyum/Toplam Azot oranlari
-monthly_TN_TO_NH4_N_RATIO     = containers.Map('KeyType', 'int64', 'ValueType', 'double');
-monthly_TN_TO_NH4_N_RATIO(1)  = 0.02;
-monthly_TN_TO_NH4_N_RATIO(2)  = 0.00;
-monthly_TN_TO_NH4_N_RATIO(3)  = 0.02;
-monthly_TN_TO_NH4_N_RATIO(4)  = 0.00;
-monthly_TN_TO_NH4_N_RATIO(5)  = 0.01;
-monthly_TN_TO_NH4_N_RATIO(6)  = 0.01;
-monthly_TN_TO_NH4_N_RATIO(7)  = 0.02;
-monthly_TN_TO_NH4_N_RATIO(8)  = 0.00;
-monthly_TN_TO_NH4_N_RATIO(9)  = 0.02;
-monthly_TN_TO_NH4_N_RATIO(10) = 0.00;
-monthly_TN_TO_NH4_N_RATIO(11) = 0.02;
-monthly_TN_TO_NH4_N_RATIO(12) = 0.00;
+monthly_TN_TO_NH4_N_RATIO       = containers.Map('KeyType', 'int64', 'ValueType', 'double');
+monthly_TN_TO_NH4_N_RATIO(1)    = 0.02;
+monthly_TN_TO_NH4_N_RATIO(2)    = 0.00;
+monthly_TN_TO_NH4_N_RATIO(3)    = 0.02;
+monthly_TN_TO_NH4_N_RATIO(4)    = 0.00;
+monthly_TN_TO_NH4_N_RATIO(5)    = 0.01;
+monthly_TN_TO_NH4_N_RATIO(6)    = 0.01;
+monthly_TN_TO_NH4_N_RATIO(7)    = 0.02;
+monthly_TN_TO_NH4_N_RATIO(8)    = 0.00;
+monthly_TN_TO_NH4_N_RATIO(9)    = 0.02;
+monthly_TN_TO_NH4_N_RATIO(10)   = 0.00;
+monthly_TN_TO_NH4_N_RATIO(11)   = 0.02;
+monthly_TN_TO_NH4_N_RATIO(12)   = 0.00;
 
 C_NH4_N_DATA = zeros(length(month_data), 1);
 for i = 1:length(month_data)
