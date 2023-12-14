@@ -183,7 +183,7 @@ cd(FOLDER_PATH)
 
 %---------------------------------------------------------------------------------------
 
-MAPSHED_OUTPUT_FOLDER       = strcat(FOLDER_PATH, '\MAPSHED_OUTPUT\KALECIK_SUB_002');
+MAPSHED_OUTPUT_FOLDER       = strcat(FOLDER_PATH, '\MAPSHED_OUTPUT\SUB_002');
 C_FILENAME					= 'cin_kol001_seg002_sub002';
 CEQUAL_C_INPUT_FOLDER		= strcat(FOLDER_PATH, '\CEQUAL_INPUT\C_FILES');
 READ_MAPSHED_OUTPUT_FOLDER  = dir(strcat(MAPSHED_OUTPUT_FOLDER, '\*.csv'));
